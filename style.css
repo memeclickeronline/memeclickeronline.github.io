@@ -6,13 +6,25 @@ body {
   padding: 0;
 }
 
-#title {
-  font-family: 'Luckiest Guy', cursive, sans-serif; /* title uses the font */
-  font-size: 3em;
-  color: #00ff00; /* green */
-  margin-top: 20px;
-  text-shadow: 2px 2px #000; /* makes it pop */
+#titleContainer {
+  font-family: 'Luckiest Guy', cursive, sans-serif;
+  font-size: 80px;         /* big bold title */
+  text-align: center;
+  margin-top: 40px;        /* lowers title from top of page */
+  line-height: 1.2;        /* increases spacing between lines */
+  text-shadow: 2px 2px #000; /* black outline for pop */
 }
+
+#memeWord {
+  color: #ffea00; /* yellow */
+  display: block;  /* ensures it stays on its own line */
+}
+
+#clickerWord {
+  color: #00ff00; /* green */
+  display: block;  /* ensures it stays on its own line */
+}
+
 
 #score {
   font-family: 'Luckiest Guy', cursive, sans-serif; /* score uses font too */
