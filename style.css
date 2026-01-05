@@ -47,13 +47,34 @@ body {
   align-items: center;
 }
 
-/* Score */
-#score {
-  font-size: 2em;
-  color: #00ccff;
-  text-shadow: 1px 1px #000;
-  margin-bottom: 20px;
+/* ===== Aura Score Box ===== */
+#score.topRight {
+  position: absolute;      /* top-right corner */
+  top: 20px;
+  right: 20px;
+  font-size: 2em;          /* bigger text */
+  color: #00ccff;          /* blue text */
+  font-family: 'Luckiest Guy', cursive;
+  background: linear-gradient(135deg, #111, #000); /* dark box */
+  padding: 15px 25px;      /* space inside box */
+  border-radius: 15px;     /* rounded corners */
+  border: 2px solid #00ffff; /* bright outline */
+  box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff inset; /* glowing box */
+  text-shadow: 0 0 8px #00ccff, 0 0 15px #00ffff; /* glowing text */
+  z-index: 10;             /* above other elements */
+  animation: electricGlow 1s infinite alternate; /* glow animation */
 }
+
+/* Electric glow animation */
+@keyframes electricGlow {
+  0% {
+    box-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff inset;
+  }
+  100% {
+    box-shadow: 0 0 25px #00ffff, 0 0 50px #00ffff inset;
+  }
+}
+
 
 /* Meme Button */
 #clickBtn {
