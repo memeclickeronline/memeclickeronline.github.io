@@ -50,11 +50,15 @@ function buyUpgrade(type) {
   } else if (type === "boomer" && aura >= boomerCost) {
     aura -= boomerCost;
     boomerCount++;
+    boomerOwnedEl.textContent = boomerCount;
+
     boomerCost = Math.ceil(boomerCost * 1.25);
     boomerCostEl.textContent = boomerCost;
   } else if (type === "genZ" && aura >= genZCost) {
     aura -= genZCost;
     genZCount++;
+    genZOwnedEl.textContent = genZCount;
+
     genZCost = Math.ceil(genZCost * 1.25);
     genZCostEl.textContent = genZCost;
   }
