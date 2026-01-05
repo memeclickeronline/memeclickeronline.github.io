@@ -1,32 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Meme Clicker</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<!-- Curved two-color title -->
-<svg width="600" height="200">
-  <defs>
-    <!-- Path for curved text -->
-    <path id="curve" d="M 50 150 C 150 0, 450 0, 550 150" />
-  </defs>
-
-  <!-- "Meme" in yellow -->
-  <text font-family="Luckiest Guy" font-size="50" fill="#ffea00" stroke="#000" stroke-width="2">
-    <textPath href="#curve" text-anchor="middle" startOffset="50%">
-      Meme
-    </textPath>
-  </text>
-
-  <!-- "Clicker" in green -->
-  <text font-family="Luckiest Guy" font-size="50" fill="#00ff00" stroke="#000" stroke-width="2">
-    <textPath href="#curve" text-anchor="middle" startOffset="50%" dy="90">
-      Clicker
-    </textPath>
-  </text>
-</svg>
+  <meta charset="UTF-8"><div id="titleContainer">
+  <span class="titleLine yellow">Meme</span>
+  <span class="titleLine green">Clicker</span>
+</div>
 
 
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
