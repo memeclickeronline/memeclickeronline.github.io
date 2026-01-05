@@ -6,17 +6,28 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Curved Title -->
-<svg width="600" height="150">
+<!-- Curved two-color title -->
+<svg width="600" height="200">
   <defs>
-    <path id="curve" d="M 50 100 C 150 0, 450 0, 550 100" />
+    <!-- Path for curved text -->
+    <path id="curve" d="M 50 150 C 150 0, 450 0, 550 150" />
   </defs>
-  <text font-family="Luckiest Guy" font-size="50" fill="#00ff00" stroke="#000" stroke-width="2">
+
+  <!-- "Meme" in yellow -->
+  <text font-family="Luckiest Guy" font-size="50" fill="#ffea00" stroke="#000" stroke-width="2">
     <textPath href="#curve" text-anchor="middle" startOffset="50%">
-      Meme Clicker
+      Meme
+    </textPath>
+  </text>
+
+  <!-- "Clicker" in green -->
+  <text font-family="Luckiest Guy" font-size="50" fill="#00ff00" stroke="#000" stroke-width="2">
+    <textPath href="#curve" text-anchor="middle" startOffset="50%" dy="60">
+      Clicker
     </textPath>
   </text>
 </svg>
+
 
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
 
