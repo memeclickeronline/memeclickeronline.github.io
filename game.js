@@ -20,11 +20,19 @@ const boomerCostEl = document.getElementById("boomerCost");
 const genZCostEl = document.getElementById("genZCost");
 const clickBtn = document.getElementById("clickBtn");
 
-// ===== Click Event =====
+// ===== Click cooldown =====
+let lastClickTime = 0; // stores last click time
+const clickCooldown = 300; // milliseconds (0.3 seconds)
+
 clickBtn.addEventListener("click", () => {
-  aura += 1;
-  updateScore();
+  const now = Date.now(); // current time
+  if (now - lastClickTime >= clickCooldown) {
+    aura += 1; // add 1 Aura per valid click
+    updateScore(); // update display
+    lastClickTime = now; // reset last click time
+  }
 });
+
 
 // ===== Upgrade Purchase Functions =====
 function buyUpgrade(type) {
