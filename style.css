@@ -83,11 +83,17 @@ body {
   cursor: pointer;
 }
 
+/* ===== Meme Image Bigger ===== */
 #memeImg {
-  width: 250px;
-  height: 250px;
+  width: 400px;   /* bigger image */
+  height: 400px;
   transition: transform 0.1s;
 }
+
+#memeImg:active {
+  transform: scale(0.95);
+}
+
 
 #memeImg:active {
   transform: scale(0.95);
