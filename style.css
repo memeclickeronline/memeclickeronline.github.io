@@ -121,64 +121,56 @@ body {
   transform: scale(0.95);
 }
 
-/* ===== Shop (right side) ===== */
+/* Upgrade box scrollable if too tall */
 #shop {
-  flex: 0 0 250px; /* fixed width */
   text-align: left;
-  background: linear-gradient(135deg, #fff200, #ffea00);
+  background: #fff;
   padding: 20px;
-  border-radius: 20px;
-  box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
-  border: 3px solid #000;
-  max-height: 80vh;
-  overflow-y: auto; /* scroll if too tall */
-  font-family: 'Luckiest Guy', cursive;
-  position: sticky;
-  top: 20px;
+  border-radius: 15px;
+  box-shadow: 3px 3px #aaa;
+  width: 280px;      /* fixed width to keep layout neat */
+  max-height: 70vh;  /* allows scrolling if too many upgrades */
+  overflow-y: auto;
 }
 
-/* Upgrade boxes */
-.upgrade {
-  margin-bottom: 20px;
-  font-size: 1.2em;
-  background: rgba(255,255,255,0.3);
-  padding: 10px;
-  border-radius: 12px;
-  border: 2px solid #000;
+/* Upgrade header: name + cost inline */
+.upgradeHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* name left, cost right */
+  margin-bottom: 5px;
+  font-size: 1.1em; /* readable size */
 }
 
-/* Upgrade buttons */
-.upgrade button {
-  padding: 10px 20px;
-  margin-right: 10px;
-  font-size: 1em;
+/* Upgrade button style */
+.upgradeHeader button {
+  font-size: 1.1em;  /* matches header */
   cursor: pointer;
-  background-color: #ff9900;
-  border: 2px solid #000;
-  border-radius: 12px;
-  font-family: 'Luckiest Guy', cursive;
-  transition: transform 0.1s, background-color 0.2s;
-}
-
-.upgrade button:hover {
-  background-color: #ffd500;
-}
-
-.upgrade button:active {
-  transform: scale(0.95);
   background-color: #ffcc00;
+  border: 2px solid #000;
+  border-radius: 8px;
+  padding: 8px 12px;
+  transition: transform 0.1s;
 }
 
-/* Scrollbar style for shop */
-#shop::-webkit-scrollbar {
-  width: 8px;
+.upgradeHeader button:active {
+  transform: scale(0.95);
 }
 
-#shop::-webkit-scrollbar-track {
-  background: #fff0;
+/* Upgrade cost style */
+.upgradeCost {
+  font-weight: bold;
+  color: #ff9900;
+  margin-left: 10px;
+  white-space: nowrap; /* prevents cost from wrapping */
 }
 
-#shop::-webkit-scrollbar-thumb {
-  background-color: #000;
-  border-radius: 4px;
+/* Upgrade description style */
+.upgradeDesc {
+  font-size: 0.9em; /* slightly smaller than header */
+  color: #333;
+  margin-left: 5px;
+  margin-bottom: 15px;
+  font-style: italic;
 }
+
