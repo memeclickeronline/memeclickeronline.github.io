@@ -43,6 +43,8 @@ function buyUpgrade(type) {
   if (type === "seven" && aura >= sevenCost) {
     aura -= sevenCost;
     sevenCount++;
+    sevenOwnedEl.textContent = sevenCount;
+
     sevenCost = Math.ceil(sevenCost * 1.25);
     sevenCostEl.textContent = sevenCost;
   } else if (type === "boomer" && aura >= boomerCost) {
