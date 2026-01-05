@@ -48,7 +48,7 @@ body {
 }
 
 /* ===== Aura Score Box with Sparks ===== */
-#score.topRight {  /* you can keep the class name as topRight or rename it */
+#score.topLeft {  /* you can keep the class name as topRight or rename it */
   position: absolute;   /* top-left corner */
   top: 20px;
   left: 20px;           /* changed from right to left */
