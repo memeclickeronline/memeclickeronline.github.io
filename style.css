@@ -184,3 +184,47 @@ body {
   font-style: italic;
 }
 
+/* ===== Upgrade Cards ===== */
+.upgradeCard {
+  background: #fff8cc;
+  border: 2px solid #000;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 15px;
+  box-shadow: 3px 3px #000;
+}
+
+.upgradeTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.upgradeTop button {
+  background: #ffcc00;
+  border: 2px solid #000;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-family: 'Luckiest Guy', cursive;
+  cursor: pointer;
+}
+
+.upgradeCost {
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+.upgradeOwned {
+  margin-top: 5px;
+  font-size: 0.9em;
+  color: #333;
+}
+
+.upgradeDesc {
+  margin-top: 6px;
+  font-size: 0.85em;
+  font-style: italic;
+  color: #444;
+}
+
+
