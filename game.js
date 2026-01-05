@@ -20,6 +20,11 @@ const boomerCostEl = document.getElementById("boomerCost");
 const genZCostEl = document.getElementById("genZCost");
 const clickBtn = document.getElementById("clickBtn");
 
+const sevenOwnedEl = document.getElementById("sevenOwned");
+const boomerOwnedEl = document.getElementById("boomerOwned");
+const genZOwnedEl = document.getElementById("genZOwned");
+
+
 // ===== Click cooldown =====
 let lastClickTime = 0;
 const clickCooldown = 300;
