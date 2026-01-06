@@ -8,93 +8,64 @@
 </head>
 <body>
 
+  <!-- Aura -->
+  <div id="score">Aura: 0</div>
+
   <!-- Title -->
-  <div id="titleContainer">
+  <div id="title">
     <span class="yellow">Meme</span>
     <span class="green">Clicker</span>
   </div>
 
-  <!-- Score in top-left corner -->
-<div id="score" class="topLeft">Aura: 0</div>
+  <div id="container">
 
-
-  <!-- Game + Shop Wrapper -->
-  <div id="gameWrapper">
-
-    <!-- Game Area (Left) -->
-    <div id="gameArea">
-
-    
-
-
-
-      <!-- Big Meme Click Button -->
+    <!-- Game -->
+    <div id="game">
       <button id="clickBtn">
-        <img id="memeImg" src="https://image2url.com/r2/bucket2/images/1767609683239-18bb92ac-314c-40c8-a730-356e9d2fcb74.webp" alt="Big Meme">
+        <img src="https://image2url.com/r2/bucket2/images/1767609683239-18bb92ac-314c-40c8-a730-356e9d2fcb74.webp">
       </button>
     </div>
 
-<div id="shop">
-  <h2 id="shopTitle">Shop</h2>
+    <!-- Shop -->
+    <div id="shop">
+      <h2>Shop</h2>
 
+      <div class="card">
+        <button id="sevenBtn">7 Year Old</button>
+        <p>Cost: <span id="sevenCost">1</span></p>
+        <p>Owned: <span id="sevenOwned">0</span></p>
+        <small>+1 aura / 5s</small>
+      </div>
 
-  <div class="upgradeCard">
-    <div class="upgradeTop">
-      <button id="sevenBtn">7 Year Old</button>
-      <span class="upgradeCost">Cost: <span id="sevenCost">1</span> Aura</span>
+      <div class="card">
+        <button id="boomerBtn">Cool Boomer</button>
+        <p>Cost: <span id="boomerCost">2</span></p>
+        <p>Owned: <span id="boomerOwned">0</span></p>
+        <small>+1 aura / 3s</small>
+      </div>
+
+      <div class="card">
+        <button id="genZBtn">Gen Z Nerd</button>
+        <p>Cost: <span id="genZCost">3</span></p>
+        <p>Owned: <span id="genZOwned">0</span></p>
+        <small>±5 aura / 5s</small>
+      </div>
+
+      <div class="card">
+        <button id="rizzBtn">Fake Rizz God</button>
+        <p>Cost: <span id="rizzCost">50</span></p>
+        <p>Owned: <span id="rizzOwned">0</span></p>
+        <small>+1 aura / sec</small>
+      </div>
+
+      <div class="card">
+        <button id="skibidiBtn">Skibidi Toilet</button>
+        <p>Cost: <span id="skibidiCost">100</span></p>
+        <p>Owned: <span id="skibidiOwned">0</span></p>
+        <small>+2 aura / sec</small>
+      </div>
+
     </div>
-    <div class="upgradeOwned">Owned: <span id="sevenOwned">0</span></div>
-    <div class="upgradeDesc">
-      Little iPad kid who gains 1 aura every 5 seconds.
-    </div>
-  </div>
-
-  <div class="upgradeCard">
-    <div class="upgradeTop">
-      <button id="boomerBtn">Cool Boomer</button>
-      <span class="upgradeCost">Cost: <span id="boomerCost">2</span> Aura</span>
-    </div>
-    <div class="upgradeOwned">Owned: <span id="boomerOwned">0</span></div>
-    <div class="upgradeDesc">
-      Boomer who tries to be cool but ain’t, 1 aura every 3 seconds.
-    </div>
-  </div>
-
-  <div class="upgradeCard">
-    <div class="upgradeTop">
-      <button id="genZBtn">Gen Z Nerd</button>
-      <span class="upgradeCost">Cost: <span id="genZCost">3</span> Aura</span>
-    </div>
-    <div class="upgradeOwned">Owned: <span id="genZOwned">0</span></div>
-    <div class="upgradeDesc">
-      Nerd who thinks memes are ehh, 50/50 chance for either 5 or -5 aura every 5 seconds.
-    </div>
-  </div>
-  <div class="upgradeCard">
-  <div class="upgradeTop">
-    <button id="rizzBtn">Fake Rizz God</button>
-    <span class="upgradeCost">Cost: <span id="rizzCost">50</span> Aura</span>
-  </div>
-  <div class="upgradeOwned">Owned: <span id="rizzOwned">0</span></div>
-  <div class="upgradeDesc">
-    He ain’t the rizz god, the ladies he got are people no one else wanted to date. 1 Aura every second.
-  </div>
-</div>
-
-<div class="upgradeCard">
-  <div class="upgradeTop">
-    <button id="skibidiBtn">Skibidi Toilet</button>
-    <span class="upgradeCost">Cost: <span id="skibidiCost">100</span> Aura</span>
-  </div>
-  <div class="upgradeOwned">Owned: <span id="skibidiOwned">0</span></div>
-  <div class="upgradeDesc">
-    He fell off harder than OHIO. Still better than Fake Rizz God. 2 Aura every second.
-  </div>
-</div>
-</div>
-
-
-
   </div>
 
   <script src="game.js"></script>
