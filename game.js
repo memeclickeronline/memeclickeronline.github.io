@@ -6,6 +6,9 @@ const scoreEl = document.getElementById("score");
 let sevenCount = 0;
 let boomerCount = 0;
 let genZCount = 0;
+let skibidiCount = 0;
+let skibidiCost = 100;
+
 
 // ===== Costs =====
 let sevenCost = 1;
@@ -17,6 +20,8 @@ const clickBtn = document.getElementById("clickBtn");
 const sevenBtn = document.getElementById("sevenBtn");
 const boomerBtn = document.getElementById("boomerBtn");
 const genZBtn = document.getElementById("genZBtn");
+const skibidiBtn = document.getElementById("skibidiBtn");
+
 
 // ===== UI =====
 const sevenCostEl = document.getElementById("sevenCost");
@@ -26,6 +31,9 @@ const genZCostEl = document.getElementById("genZCost");
 const sevenOwnedEl = document.getElementById("sevenOwned");
 const boomerOwnedEl = document.getElementById("boomerOwned");
 const genZOwnedEl = document.getElementById("genZOwned");
+
+const skibidiCostEl = document.getElementById("skibidiCost");
+const skibidiOwnedEl = document.getElementById("skibidiOwned");
 
 // ===== Click Meme =====
 clickBtn.addEventListener("click", () => {
@@ -44,6 +52,18 @@ sevenBtn.addEventListener("click", () => {
     sevenCostEl.textContent = sevenCost;
     updateScore();
   }
+  skibidiBtn.addEventListener("click", () => {
+  if (aura >= skibidiCost) {
+    aura -= skibidiCost;
+    skibidiCount++;
+    skibidiCost = Math.ceil(skibidiCost * 1.25);
+
+    skibidiOwnedEl.textContent = skibidiCount;
+    skibidiCostEl.textContent = skibidiCost;
+    updateScore();
+  }
+});
+
 });
 
 boomerBtn.addEventListener("click", () => {
@@ -96,3 +116,8 @@ setInterval(() => {
 function updateScore() {
   scoreEl.textContent = "Aura: " + aura;
 }
+setInterval(() => {
+  aura += skibidiCount * 2;
+  updateScore();
+}, 1000);
+
