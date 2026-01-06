@@ -1,21 +1,19 @@
 let clickMultiplier = 1; // base multiplier
-
-// ===== Aura =====
 let aura = 0;
 const score = document.getElementById("score");
 
-// ===== Update UI =====
+// Update UI
 function updateScore() {
-  score.textContent = "Aura: " + aura;
+  score.textContent = "Aura: " + Math.round(aura*100)/100;
 }
 
+// Click Button
 document.getElementById("clickBtn").addEventListener("click", () => {
-  aura += clickMultiplier; // instead of just +1
+  aura += clickMultiplier;
   updateScore();
 });
 
-
-// ===== Upgrades =====
+// Upgrades
 const upgrades = {
   seven: { count: 0, cost: 1 },
   boomer: { count: 0, cost: 2 },
@@ -24,7 +22,7 @@ const upgrades = {
   skibidi: { count: 0, cost: 100 }
 };
 
-// ===== Buy Function =====
+// Buy Function
 function buyUpgrade(name) {
   const up = upgrades[name];
   if (aura >= up.cost) {
@@ -39,58 +37,51 @@ function buyUpgrade(name) {
   }
 }
 
-// ===== Buttons =====
+// Upgrade buttons
 document.getElementById("sevenBtn").onclick   = () => buyUpgrade("seven");
 document.getElementById("boomerBtn").onclick  = () => buyUpgrade("boomer");
 document.getElementById("genZBtn").onclick    = () => buyUpgrade("genZ");
 document.getElementById("rizzBtn").onclick    = () => buyUpgrade("rizz");
 document.getElementById("skibidiBtn").onclick = () => buyUpgrade("skibidi");
 
-// ===== Auto Income =====
+// Auto income
+setInterval(() => { aura += upgrades.seven.count; updateScore(); }, 5000);
+setInterval(() => { aura += upgrades.boomer.count; updateScore(); }, 3000);
 setInterval(() => {
-  aura += upgrades.seven.count;
-  updateScore();
-}, 5000);
-
-setInterval(() => {
-  aura += upgrades.boomer.count;
-  updateScore();
-}, 3000);
-
-setInterval(() => {
-  for (let i = 0; i < upgrades.genZ.count; i++) {
-    aura += Math.random() < 0.5 ? 5 : -5;
-    if (aura < 0) aura = 0;
+  for (let i=0; i<upgrades.genZ.count; i++){
+    aura += Math.random()<0.5?5:-5;
+    if(aura<0)aura=0;
   }
   updateScore();
 }, 5000);
+setInterval(() => { aura += upgrades.rizz.count; updateScore(); }, 1000);
+setInterval(() => { aura += upgrades.skibidi.count*2; updateScore(); }, 1000);
 
-setInterval(() => {
-  aura += upgrades.rizz.count;
-  updateScore();
-}, 1000);
-
-setInterval(() => {
-  aura += upgrades.skibidi.count * 2;
-  updateScore();
-}, 1000);
-// ===== Tab Switching =====
+// Tab switching
 const tabs = document.querySelectorAll("#shopTabs .tab");
 const panels = document.querySelectorAll(".shopPanel");
-
 tabs.forEach(tab => {
   tab.addEventListener("click", () => {
-    // Remove active class from all tabs
-    tabs.forEach(t => t.classList.remove("active"));
-    // Hide all panels
-    panels.forEach(p => p.classList.remove("active"));
+    tabs.forEach(t=>t.classList.remove("active"));
+    panels.forEach(p=>p.classList.remove("active"));
 
-    // Activate clicked tab and corresponding panel
     tab.classList.add("active");
     const panelId = tab.getAttribute("data-tab");
     document.getElementById(panelId).classList.add("active");
   });
 });
 
-// Set Auto Clickers as default panel
-document.getElementById("autoClickers").classList.add("active");
+// Bombardillo Crocodillo (single purchase 1.1x multiplier)
+let bcBought = false;
+const bcBtn = document.getElementById("bcBtn");
+bcBtn.onclick = () => {
+  if (!bcBought && aura >= 10000) {
+    aura -= 10000;
+    bcBought = true;
+    clickMultiplier = 1.1;
+    bcBtn.disabled = true;
+    bcBtn.textContent = "Bombardillo Crocodillo (Bought)";
+    document.getElementById("bcOwned").textContent = 1;
+    updateScore();
+  }
+};
