@@ -157,4 +157,17 @@ async function onUserLogin(user) {
 document.getElementById("loginBtn").onclick = () => {
   window.location.href = "https://accounts.monkeymechanics.github.io";
 };
+document.getElementById("logoutBtn").onclick = async () => {
+  await firebase.auth().signOut();
+  location.reload();
+};
+firebase.auth().onAuthStateChanged(user => {
+  if (user) {
+    document.getElementById("loginBtn").style.display = "none";
+    document.getElementById("logoutBtn").style.display = "inline-block";
+  } else {
+    document.getElementById("loginBtn").style.display = "inline-block";
+    document.getElementById("logoutBtn").style.display = "none";
+  }
+});
 
