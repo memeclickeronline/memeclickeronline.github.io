@@ -20,6 +20,14 @@ const meCloseBtn = document.getElementById('meCloseBtn');
 const loginBtn = document.getElementById('loginBtn');
 const logoutBtn = document.getElementById('logoutBtn');
 
+// Bottom nav
+const tabBtns = document.querySelectorAll('#bottomBar .tabBtn');
+const screens = document.querySelectorAll('.screen');
+
+// Shop tabs
+const tabs = document.querySelectorAll("#shopTabs .tab");
+const panels = document.querySelectorAll(".shopPanel");
+
 // ===== GAME VARIABLES =====
 let aura = 0;
 let clickMultiplier = 1;
@@ -33,12 +41,7 @@ const upgrades = {
   skibidi: { count: 0, cost: 100 }
 };
 
-// ===== HELPER FUNCTIONS =====
-function updateScore() {
-  scoreEl.textContent = "Aura: " + Math.round(aura * 100) / 100;
-  saveLocal();
-}
-
+// ===== LOCAL STORAGE =====
 function saveLocal() {
   localStorage.setItem('memeClickerProgress', JSON.stringify({ aura, clickMultiplier, upgrades, bcBought }));
 }
@@ -57,7 +60,13 @@ function loadLocal() {
   updateScore();
 }
 
-// ===== CLICK =====
+// ===== SCORE =====
+function updateScore() {
+  scoreEl.textContent = "Aura: " + Math.round(aura * 100) / 100;
+  saveLocal();
+}
+
+// ===== CLICK LOGIC =====
 let canClick = true;
 clickBtn.addEventListener("click", () => {
   if (!canClick) return;
@@ -79,11 +88,26 @@ function buyUpgrade(name) {
     updateScore();
   }
 }
+
+// Upgrade buttons
 document.getElementById("sevenBtn").onclick = () => buyUpgrade("seven");
 document.getElementById("boomerBtn").onclick = () => buyUpgrade("boomer");
 document.getElementById("genZBtn").onclick = () => buyUpgrade("genZ");
 document.getElementById("rizzBtn").onclick = () => buyUpgrade("rizz");
 document.getElementById("skibidiBtn").onclick = () => buyUpgrade("skibidi");
+
+// Bombardillo Crocodillo
+const bcBtn = document.getElementById("bcBtn");
+bcBtn.onclick = () => {
+  if (!bcBought && aura >= 10000) {
+    aura -= 10000;
+    bcBought = true;
+    clickMultiplier = 1.1;
+    bcBtn.disabled = true;
+    bcBtn.textContent = "Bombardillo Crocodillo (Bought)";
+    updateScore();
+  }
+};
 
 // ===== AUTO INCOME =====
 setInterval(() => { aura += upgrades.seven.count * clickMultiplier; updateScore(); }, 5000);
@@ -99,8 +123,6 @@ setInterval(() => { aura += upgrades.rizz.count * clickMultiplier; updateScore()
 setInterval(() => { aura += upgrades.skibidi.count * 2 * clickMultiplier; updateScore(); }, 1000);
 
 // ===== SHOP TABS =====
-const tabs = document.querySelectorAll("#shopTabs .tab");
-const panels = document.querySelectorAll(".shopPanel");
 tabs.forEach(tab => {
   tab.addEventListener("click", () => {
     tabs.forEach(t => t.classList.remove("active"));
@@ -109,19 +131,6 @@ tabs.forEach(tab => {
     document.getElementById(tab.getAttribute("data-tab")).classList.add("active");
   });
 });
-
-// ===== BOMBARDILLO CROCODILLO =====
-const bcBtn = document.getElementById("bcBtn");
-bcBtn.onclick = () => {
-  if (!bcBought && aura >= 10000) {
-    aura -= 10000;
-    bcBought = true;
-    clickMultiplier = 1.1;
-    bcBtn.disabled = true;
-    bcBtn.textContent = "Bombardillo Crocodillo (Bought)";
-    updateScore();
-  }
-};
 
 // ===== ME POPUP =====
 meBtn.addEventListener('click', () => { mePopup.style.display = "block"; updateMEPopup(); });
@@ -147,9 +156,6 @@ function updateMEPopup() {
 }
 
 // ===== BOTTOM NAV =====
-const tabBtns = document.querySelectorAll('#bottomBar .tabBtn');
-const screens = document.querySelectorAll('.screen');
-
 tabBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     const target = btn.getAttribute('data-target');
@@ -162,61 +168,46 @@ tabBtns.forEach(btn => {
 });
 
 // ===== LOGIN / LOGOUT =====
-loginBtn.addEventListener("click", async () => {
-  const email = // Show login modal
 loginBtn.addEventListener("click", () => {
   document.getElementById("loginPopup").style.display = "block";
 });
 
-// Close modal
 document.getElementById("loginClose").addEventListener("click", () => {
   document.getElementById("loginPopup").style.display = "none";
 });
 
-// Handle login
 document.getElementById("loginSubmit").addEventListener("click", async () => {
   const email = document.getElementById("loginEmail").value;
   const password = document.getElementById("loginPassword").value;
-
   try {
     const userCredential = await auth.signInWithEmailAndPassword(email, password);
     const user = userCredential.user;
 
     if (!user.emailVerified) {
       await user.sendEmailVerification();
-      alert("Email not verified! Check your inbox.");
-      await auth.signOut();
-    } else {
-      // Save in localStorage so login persists
-      localStorage.setItem("loggedInUser", JSON.stringify({ uid: user.uid, email: user.email }));
-      alert("Logged in successfully!");
-      syncProgress(user);
-      loginBtn.style.display = "none";
-      logoutBtn.style.display = "inline-block";
-      document.getElementById("loginPopup").style.display = "none";
-
-      // Redirect to accounts site
-      window.location.href = "https://accounts.monkeymechanics.github.io";
-    }
-  } catch (err) {
-    alert(err.message);
-  }
-});
-{
-    const userCredential = await auth.signInWithEmailAndPassword(email, password);
-    const user = userCredential.user;
-    if (!user.emailVerified) {
-      await user.sendEmailVerification();
       alert("Email not verified! Check inbox.");
       await auth.signOut();
     } else {
-      alert("Logged in successfully!");
+      localStorage.setItem("loggedInUser", JSON.stringify({ uid: user.uid, email: user.email }));
       loginBtn.style.display = "none";
       logoutBtn.style.display = "inline-block";
+      document.getElementById("loginPopup").style.display = "none";
+      updateMEPopup();
+      window.location.href = "https://accounts.monkeymechanics.github.io";
     }
   } catch (err) { alert(err.message); }
 });
-logoutBtn.addEventListener("click", async () => { await auth.signOut(); location.reload(); });
+
+logoutBtn.addEventListener("click", async () => {
+  await auth.signOut();
+  localStorage.removeItem("loggedInUser");
+  location.reload();
+});
+
+// ===== LOAD LOCAL PROGRESS =====
+loadLocal();
+
+// ===== AUTH STATE =====
 auth.onAuthStateChanged(user => {
   if(user){ loginBtn.style.display="none"; logoutBtn.style.display="inline-block"; } 
   else { loginBtn.style.display="inline-block"; logoutBtn.style.display="none"; loadLocal(); }
