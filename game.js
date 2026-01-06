@@ -1,3 +1,5 @@
+let clickMultiplier = 1; // base multiplier
+
 // ===== Aura =====
 let aura = 0;
 const score = document.getElementById("score");
@@ -7,11 +9,11 @@ function updateScore() {
   score.textContent = "Aura: " + aura;
 }
 
-// ===== Click =====
 document.getElementById("clickBtn").addEventListener("click", () => {
-  aura++;
+  aura += clickMultiplier; // instead of just +1
   updateScore();
 });
+
 
 // ===== Upgrades =====
 const upgrades = {
