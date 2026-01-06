@@ -30,10 +30,12 @@ body {
 #container {
   display: flex;
   justify-content: flex-start;
-  gap: 80px;
-  padding: 20px 60px;
+  gap: 180px;        /* bigger gap pushes shop farther right */
+  padding: 20px 40px; /* less left padding so shop isn’t too far offscreen */
   flex-wrap: wrap;
+  align-items: flex-start; /* ensures game and shop align to top */
 }
+
 
 
 #game img {
