@@ -85,3 +85,18 @@ bcBtn.onclick = () => {
     updateScore();
   }
 };
+// Bombardillo Crocodillo (single purchase 1.1x multiplier)
+let bcBought = false;
+const bcBtn = document.getElementById("bcBtn");
+
+bcBtn.onclick = () => {
+  if (!bcBought && aura >= 10000) {
+    aura -= 10000;        // subtract cost
+    bcBought = true;       // mark as bought
+    clickMultiplier = 1.1; // apply multiplier
+    bcBtn.disabled = true; // disable button
+    bcBtn.textContent = "Bombardillo Crocodillo (Bought)";
+    updateScore();
+  }
+};
+
