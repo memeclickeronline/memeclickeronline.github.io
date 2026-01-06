@@ -57,11 +57,22 @@ function loadLocal() {
   updateScore();
 }
 
-// ===== CLICK BUTTON =====
-clickBtn.addEventListener('click', () => {
+let canClick = true; // click available
+
+clickBtn.addEventListener("click", () => {
+  if (!canClick) return; // ignore clicks during cooldown
+  canClick = false;
+
+  // Add aura
   aura += clickMultiplier;
   updateScore();
+
+  // Set 0.3s delay before next click
+  setTimeout(() => {
+    canClick = true;
+  }, 300);
 });
+
 
 // ===== UPGRADE LOGIC =====
 function buyUpgrade(name) {
