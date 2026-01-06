@@ -11,30 +11,31 @@
   <!-- Aura Counter -->
   <div id="score">Aura: 0</div>
 
-  <!-- Title -->
-  <div id="title">
-    <span class="blue">Meme</span>
-    <span class="green">Clicker</span>
+  <!-- Title + ME Button -->
+  <div id="titleContainer">
+    <div id="title">
+      <span class="blue">Meme</span>
+      <span class="green">Clicker</span>
+    </div>
+    <div id="meContainer">
+      <button id="meBtn">😊</button>
+      <small>ME</small>
+    </div>
   </div>
-  <div id="meContainer">
-  <button id="meBtn">😊</button>
-  <small>ME</small>
-</div>
 
-<!-- ME Popup -->
-<div id="mePopup">
-  <div id="meHeader">
-    <span>My Profile</span>
-    <button id="meCloseBtn">✖</button>
+  <!-- ME Popup -->
+  <div id="mePopup">
+    <div id="meHeader">
+      <span>My Profile</span>
+      <button id="meCloseBtn">✖</button>
+    </div>
+    <div id="meContent">
+      <p><strong>Account:</strong> <span id="accountInfo">-</span></p>
+      <p><strong>Progress:</strong> <span id="progressInfo">0%</span></p>
+      <p><strong>Worth:</strong> <span id="worthInfo">0</span></p>
+      <p><strong>Aura per 5 sec:</strong> <span id="apsInfo">0</span></p>
+    </div>
   </div>
-  <div id="meContent">
-    <p><strong>Account:</strong> <span id="accountInfo">-</span></p>
-    <p><strong>Progress:</strong> <span id="progressInfo">0%</span></p>
-    <p><strong>Worth:</strong> <span id="worthInfo">0</span></p>
-    <p><strong>Aura per 5 sec:</strong> <span id="apsInfo">0</span></p>
-  </div>
-</div>
-
 
   <!-- Main Container -->
   <div id="container">
@@ -63,28 +64,24 @@
           <p>Owned: <span id="sevenOwned">0</span></p>
           <small>+1 aura / 5s</small>
         </div>
-
         <div class="card">
           <button id="boomerBtn">Cool Boomer</button>
           <p>Cost: <span id="boomerCost">2</span></p>
           <p>Owned: <span id="boomerOwned">0</span></p>
           <small>+1 aura / 3s</small>
         </div>
-
         <div class="card">
           <button id="genZBtn">Gen Z Nerd</button>
           <p>Cost: <span id="genZCost">3</span></p>
           <p>Owned: <span id="genZOwned">0</span></p>
           <small>±5 aura / 5s</small>
         </div>
-
         <div class="card">
           <button id="rizzBtn">Fake Rizz God</button>
           <p>Cost: <span id="rizzCost">50</span></p>
           <p>Owned: <span id="rizzOwned">0</span></p>
           <small>+1 aura / sec</small>
         </div>
-
         <div class="card">
           <button id="skibidiBtn">Skibidi Toilet</button>
           <p>Cost: <span id="skibidiCost">100</span></p>
@@ -100,10 +97,9 @@
           <p>Owned: <span id="brainrotOwned">67</span></p>
           <small>Base item</small>
         </div>
-
         <div class="card">
           <button id="bcBtn">Bombardillo Crocodillo</button>
-          <p>Cost: 100</p>
+          <p>Cost: 10000</p>
           <img src="BC.jpeg" alt="Bombardillo Crocodillo" class="bcImage">
           <small>A Classic. Gives 1.1× Multiplier</small>
         </div>
