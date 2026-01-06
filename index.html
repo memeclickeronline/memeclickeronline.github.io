@@ -1,114 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Meme Clicker</title>
-  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meme Clicker</title>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Aura Counter -->
-  <div id="score">Aura: 0</div>
+<!-- Topbar -->
+<div id="topbar">
+  <button id="loginBtn">Login / Sign Up</button>
+  <button id="logoutBtn" style="display:none;">Logout</button>
+</div>
 
-  <!-- Title + ME Button -->
-  <div id="titleContainer">
-    <div id="title">
-      <span class="blue">Meme</span>
-      <span class="green">Clicker</span>
+<!-- ME Popup -->
+<div id="mePopup">
+  <div id="meHeader">
+    <span>My Profile</span>
+    <button id="meCloseBtn">✖</button>
+  </div>
+  <div id="meContent">
+    <p><strong>Account:</strong> <span id="accountInfo">-</span></p>
+    <p><strong>Progress:</strong> <span id="progressInfo">0%</span></p>
+    <p><strong>Worth:</strong> <span id="worthInfo">0</span></p>
+    <p><strong>Aura per 5 sec:</strong> <span id="apsInfo">0</span></p>
+  </div>
+</div>
+
+<!-- Score -->
+<h2 id="score">Aura: 0</h2>
+
+<!-- Click Button -->
+<button id="clickBtn">
+  <img src="https://image2url.com/r2/bucket1/images/1767710530724-0a76fc63-d3f6-4f82-b83d-11e342538afb.webp" alt="Click Me">
+</button>
+
+<!-- Shop -->
+<div id="shop">
+  <div id="shopTabs">
+    <button class="tab active" data-tab="autoClickers">Auto Clickers</button>
+    <button class="tab" data-tab="brainrots">Brainrots</button>
+  </div>
+
+  <!-- Auto Clickers -->
+  <div class="shopPanel active" id="autoClickers">
+    <div class="card">
+      <button id="sevenBtn">7 Year Old</button>
+      <p>Cost: <span id="sevenCost">1</span></p>
+      <p>Owned: <span id="sevenOwned">0</span></p>
+      <small>+1 aura / 5s</small>
     </div>
-    <div id="meContainer">
-      <button id="meBtn">😊</button>
-      <small>ME</small>
+    <div class="card">
+      <button id="boomerBtn">Cool Boomer</button>
+      <p>Cost: <span id="boomerCost">2</span></p>
+      <p>Owned: <span id="boomerOwned">0</span></p>
+      <small>+1 aura / 3s</small>
+    </div>
+    <div class="card">
+      <button id="genZBtn">Gen Z Nerd</button>
+      <p>Cost: <span id="genZCost">3</span></p>
+      <p>Owned: <span id="genZOwned">0</span></p>
+      <small>±5 aura / 5s</small>
+    </div>
+    <div class="card">
+      <button id="rizzBtn">Fake Rizz God</button>
+      <p>Cost: <span id="rizzCost">50</span></p>
+      <p>Owned: <span id="rizzOwned">0</span></p>
+      <small>+1 aura / sec</small>
+    </div>
+    <div class="card">
+      <button id="skibidiBtn">Skibidi Toilet</button>
+      <p>Cost: <span id="skibidiCost">100</span></p>
+      <p>Owned: <span id="skibidiOwned">0</span></p>
+      <small>+2 aura / sec</small>
     </div>
   </div>
 
-  <!-- ME Popup -->
-  <div id="mePopup">
-    <div id="meHeader">
-      <span>My Profile</span>
-      <button id="meCloseBtn">✖</button>
+  <!-- Brainrots -->
+  <div class="shopPanel" id="brainrots">
+    <div class="card">
+      <button id="brainrotBtn">Brainrot</button>
+      <p>Owned: <span id="brainrotOwned">0</span></p>
+      <small>Base item</small>
     </div>
-    <div id="meContent">
-      <p><strong>Account:</strong> <span id="accountInfo">-</span></p>
-      <p><strong>Progress:</strong> <span id="progressInfo">0%</span></p>
-      <p><strong>Worth:</strong> <span id="worthInfo">0</span></p>
-      <p><strong>Aura per 5 sec:</strong> <span id="apsInfo">0</span></p>
+    <div class="card">
+      <button id="bcBtn">Bombardillo Crocodillo</button>
+      <p>Cost: 10000</p>
+      <img src="https://image2url.com/r2/bucket1/images/1767710530724-0a76fc63-d3f6-4f82-b83d-11e342538afb.webp" class="bcImage">
+      <small>A Classic. Gives 1.1× Multiplier</small>
     </div>
   </div>
+</div>
 
-  <!-- Main Container -->
-  <div id="container">
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="game.js"></script>
 
-    <!-- Game Section -->
-    <div id="game">
-      <button id="clickBtn">
-        <img src="https://image2url.com/r2/bucket2/images/1767609683239-18bb92ac-314c-40c8-a730-356e9d2fcb74.webp" alt="Click Me">
-      </button>
-    </div>
-
-    <!-- Shop Section -->
-    <div id="shop">
-
-      <!-- Tabs -->
-      <div id="shopTabs">
-        <button class="tab active" data-tab="autoClickers">Auto Clickers</button>
-        <button class="tab" data-tab="brainrots">Brainrots</button>
-      </div>
-
-      <!-- Auto Clickers Panel -->
-      <div class="shopPanel active" id="autoClickers">
-        <div class="card">
-          <button id="sevenBtn">7 Year Old</button>
-          <p>Cost: <span id="sevenCost">1</span></p>
-          <p>Owned: <span id="sevenOwned">0</span></p>
-          <small>+1 aura / 5s</small>
-        </div>
-        <div class="card">
-          <button id="boomerBtn">Cool Boomer</button>
-          <p>Cost: <span id="boomerCost">2</span></p>
-          <p>Owned: <span id="boomerOwned">0</span></p>
-          <small>+1 aura / 3s</small>
-        </div>
-        <div class="card">
-          <button id="genZBtn">Gen Z Nerd</button>
-          <p>Cost: <span id="genZCost">3</span></p>
-          <p>Owned: <span id="genZOwned">0</span></p>
-          <small>±5 aura / 5s</small>
-        </div>
-        <div class="card">
-          <button id="rizzBtn">Fake Rizz God</button>
-          <p>Cost: <span id="rizzCost">50</span></p>
-          <p>Owned: <span id="rizzOwned">0</span></p>
-          <small>+1 aura / sec</small>
-        </div>
-        <div class="card">
-          <button id="skibidiBtn">Skibidi Toilet</button>
-          <p>Cost: <span id="skibidiCost">100</span></p>
-          <p>Owned: <span id="skibidiOwned">0</span></p>
-          <small>+2 aura / sec</small>
-        </div>
-      </div>
-
-      <!-- Brainrots Panel -->
-      <div class="shopPanel" id="brainrots">
-        <div class="card">
-          <button id="brainrotBtn">Brainrot</button>
-          <p>Owned: <span id="brainrotOwned">67</span></p>
-          <small>Base item</small>
-        </div>
-        <div class="card">
-          <button id="bcBtn">Bombardillo Crocodillo</button>
-          <p>Cost: 10000</p>
-          <img src="BC.jpeg" alt="Bombardillo Crocodillo" class="bcImage">
-          <small>A Classic. Gives 1.1× Multiplier</small>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-
-  <script src="game.js"></script>
 </body>
 </html>
