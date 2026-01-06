@@ -5,6 +5,7 @@ body {
   text-align: center;
 }
 
+/* Aura box */
 #score {
   position: fixed;
   top: 15px;
@@ -18,37 +19,37 @@ body {
   font-size: 1.5em;
 }
 
+/* Title */
 #title {
   font-size: 80px;
   margin: 60px 0 30px;
   text-shadow: 3px 3px #000;
 }
-
-.yellow { color: #ffea00; display: block; }
+.blue { color: #66ccff; display: block; }
 .green { color: #00ff00; display: block; margin-top: -15px; }
 
+/* Main container */
 #container {
   display: flex;
-  justify-content: space-between;  /* pushes game left, shop right */
-  align-items: flex-start;          /* makes sure they start from top */
+  justify-content: space-between; /* game left, shop right */
+  align-items: flex-start;
   gap: 80px;
   padding: 20px 60px;
   flex-wrap: wrap;
 }
 
-
-
+/* Game image */
 #game img {
   width: 400px;
   height: 400px;
   cursor: pointer;
   transition: transform 0.1s;
 }
-
 #game img:active {
   transform: scale(0.95);
 }
 
+/* Shop panel */
 #shop {
   background: linear-gradient(135deg, #4da6ff, #1a75ff);
   padding: 20px;
@@ -58,33 +59,15 @@ body {
   color: #fff;
   max-height: 70vh;
   overflow-y: auto;
-  margin-top: -30px;  /* moves the shop panel up */
-
+  margin-top: -30px;  /* higher */
 }
 
-#shop h2 {
-  color: yellow;
-  text-shadow: 2px 2px #000;
-  margin-bottom: 20px;
-}
-
-.card {
-  background: #fff8cc;
-  color: #000;
-  border: 2px solid #000;
-  border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 15px;
-  box-shadow: 3px 3px #000;
-}
-/* Tabs container */
+/* Shop tabs */
 #shopTabs {
   display: flex;
   justify-content: space-around;
   margin-bottom: 15px;
 }
-
-/* Tab buttons */
 #shopTabs .tab {
   flex: 1;
   padding: 10px 0;
@@ -96,26 +79,23 @@ body {
   margin: 0 5px;
   transition: transform 0.1s, background 0.2s;
 }
-
-#shopTabs .tab:hover {
-  background: #ffee66;
-}
-
-#shopTabs .tab.active {
-  background: #ffff00;
-  box-shadow: 2px 2px #000;
-}
+#shopTabs .tab:hover { background: #ffee66; }
+#shopTabs .tab.active { background: #ffff00; box-shadow: 2px 2px #000; }
 
 /* Panels */
-.shopPanel {
-  display: none; /* hidden by default */
+.shopPanel { display: none; }
+.shopPanel.active { display: block; }
+
+/* Upgrade cards */
+.card {
+  background: #fff8cc;
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 15px;
+  box-shadow: 3px 3px #000;
 }
-
-.shopPanel.active {
-  display: block;
-}
-
-
 .card button {
   font-family: 'Luckiest Guy', cursive;
   background: #ffcc00;
@@ -125,14 +105,5 @@ body {
   cursor: pointer;
   width: 100%;
 }
-
-.card p {
-  margin: 5px 0;
-}
-
-.card small {
-  font-style: italic;
-}
-.blue {
-  color: #66ccff;
-}
+.card p { margin: 5px 0; }
+.card small { font-style: italic; }
