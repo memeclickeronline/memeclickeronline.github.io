@@ -76,18 +76,42 @@ clickBtn.addEventListener("click", () => {
   setTimeout(() => { canClick = true; }, 300);
 });
 
-// ===== BUY UPGRADES =====
+// ===== BUY UPGRADES (with your original descriptions) =====
 function buyUpgrade(name) {
   const up = upgrades[name];
   if (aura >= up.cost) {
     aura -= up.cost;
     up.count++;
     up.cost = Math.ceil(up.cost * 1.25);
+
+    // Update UI numbers
     document.getElementById(name + "Cost").textContent = up.cost;
     document.getElementById(name + "Owned").textContent = up.count;
+
+    // Exact descriptions from your GitHub history
+    const descEl = document.querySelector(`#${name}Btn`).nextElementSibling.nextElementSibling; // <small>
+    switch(name){
+      case "seven": 
+        descEl.textContent = "Little iPad kid who gains 1 aura every 5 seconds."; 
+        break;
+      case "boomer": 
+        descEl.textContent = "Boomer who tries to be cool but ain’t, 1 aura every 3 seconds."; 
+        break;
+      case "genZ": 
+        descEl.textContent = "Nerd who thinks memes are ehh, 50/50 chance for either 5 or -5 aura every 5 seconds."; 
+        break;
+      case "rizz": 
+        descEl.textContent = "He ain’t the rizz god, the ladies he got are people no one else wanted to date. 1 Aura every second."; 
+        break;
+      case "skibidi": 
+        descEl.textContent = "He fell off harder than OHIO. Still better than Fake Rizz God. 2 Aura every second."; 
+        break;
+    }
+
     updateScore();
   }
 }
+
 
 // Upgrade buttons
 document.getElementById("sevenBtn").onclick = () => buyUpgrade("seven");
