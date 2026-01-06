@@ -11,7 +11,7 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// ===== UI ELEMENTS =====
+// ===== ELEMENTS =====
 const scoreEl = document.getElementById('score');
 const clickBtn = document.getElementById('clickBtn');
 const meBtn = document.getElementById('meBtn');
@@ -57,24 +57,17 @@ function loadLocal() {
   updateScore();
 }
 
-let canClick = true; // click available
-
+// ===== CLICK =====
+let canClick = true;
 clickBtn.addEventListener("click", () => {
-  if (!canClick) return; // ignore clicks during cooldown
+  if (!canClick) return;
   canClick = false;
-
-  // Add aura
   aura += clickMultiplier;
   updateScore();
-
-  // Set 0.3s delay before next click
-  setTimeout(() => {
-    canClick = true;
-  }, 300);
+  setTimeout(() => { canClick = true; }, 300);
 });
 
-
-// ===== UPGRADE LOGIC =====
+// ===== BUY UPGRADES =====
 function buyUpgrade(name) {
   const up = upgrades[name];
   if (aura >= up.cost) {
@@ -86,14 +79,13 @@ function buyUpgrade(name) {
     updateScore();
   }
 }
-
 document.getElementById("sevenBtn").onclick = () => buyUpgrade("seven");
 document.getElementById("boomerBtn").onclick = () => buyUpgrade("boomer");
 document.getElementById("genZBtn").onclick = () => buyUpgrade("genZ");
 document.getElementById("rizzBtn").onclick = () => buyUpgrade("rizz");
 document.getElementById("skibidiBtn").onclick = () => buyUpgrade("skibidi");
 
-// ===== AUTO-INCOME =====
+// ===== AUTO INCOME =====
 setInterval(() => { aura += upgrades.seven.count * clickMultiplier; updateScore(); }, 5000);
 setInterval(() => { aura += upgrades.boomer.count * clickMultiplier; updateScore(); }, 3000);
 setInterval(() => {
@@ -114,8 +106,7 @@ tabs.forEach(tab => {
     tabs.forEach(t => t.classList.remove("active"));
     panels.forEach(p => p.classList.remove("active"));
     tab.classList.add("active");
-    const panelId = tab.getAttribute("data-tab");
-    document.getElementById(panelId).classList.add("active");
+    document.getElementById(tab.getAttribute("data-tab")).classList.add("active");
   });
 });
 
@@ -133,164 +124,63 @@ bcBtn.onclick = () => {
 };
 
 // ===== ME POPUP =====
-meBtn.addEventListener('click', () => {
-  mePopup.style.display = "block";
-  updateMEPopup();
-});
+meBtn.addEventListener('click', () => { mePopup.style.display = "block"; updateMEPopup(); });
 meCloseBtn.addEventListener('click', () => mePopup.style.display = "none");
 
 function updateMEPopup() {
-  // Count how many **distinct upgrades you own at least 1 of**
-let ownedCount = 0;
-if (upgrades.seven.count > 0) ownedCount++;
-if (upgrades.boomer.count > 0) ownedCount++;
-if (upgrades.genZ.count > 0) ownedCount++;
-if (upgrades.rizz.count > 0) ownedCount++;
-if (upgrades.skibidi.count > 0) ownedCount++;
-if (bcBought) ownedCount++; // Bombardillo Crocodillo
-
-const totalPossible = 6; // total distinct items in ME
-document.getElementById("progressInfo").textContent = Math.round((ownedCount / totalPossible) * 100) + "%";
-
+  let ownedCount = 0;
+  for (const key in upgrades) if (upgrades[key].count > 0) ownedCount++;
+  if (bcBought) ownedCount++;
   const totalPossible = 6;
-  document.getElementById("progressInfo").textContent = Math.round(totalItems / totalPossible * 100) + "%";
+  document.getElementById("progressInfo").textContent = Math.round((ownedCount / totalPossible) * 100) + "%";
 
   let worth = 0;
-  for (const key in upgrades) { worth += upgrades[key].count * upgrades[key].cost; }
+  for (const key in upgrades) worth += upgrades[key].count * upgrades[key].cost;
   if (bcBought) worth += 10000;
-  document.getElementById("worthInfo").textContent = Math.round((worth + aura) * 100) / 100;
+  document.getElementById("worthInfo").textContent = Math.round((worth + aura) * 100)/100;
 
-  const aura5s = upgrades.seven.count + upgrades.boomer.count * (5 / 3) + upgrades.genZ.count * 5 + upgrades.rizz.count * 5 + upgrades.skibidi.count * 10;
-  document.getElementById("apsInfo").textContent = Math.round(aura5s * 100) / 100;
+  const aura5s = upgrades.seven.count + upgrades.boomer.count * (5/3) + upgrades.genZ.count * 5 + upgrades.rizz.count * 5 + upgrades.skibidi.count * 10;
+  document.getElementById("apsInfo").textContent = Math.round(aura5s * 100)/100;
 
   const user = auth.currentUser;
   document.getElementById("accountInfo").textContent = user ? user.email : "-";
 }
 
-// ===== SYNC PROGRESS =====
-async function syncProgress(user) {
-  const local = localStorage.getItem('memeClickerProgress');
-  const doc = await db.collection('users').doc(user.uid).get();
-
-  if (doc.exists && doc.data().progress) {
-    const data = doc.data().progress;
-    aura = data.aura || 0;
-    clickMultiplier = data.clickMultiplier || 1;
-    bcBought = data.bcBought || false;
-    for (const key in upgrades) { if (data.upgrades && data.upgrades[key]) upgrades[key] = data.upgrades[key]; }
-  } else if (local) {
-    await db.collection('users').doc(user.uid).set({ progress: JSON.parse(local) }, { merge: true });
-  }
-  updateScore();
-}
-
-// ===== AUTO SAVE =====
-setInterval(async () => {
-  const user = auth.currentUser;
-  saveLocal();
-  if (user) await db.collection('users').doc(user.uid).set({ progress: { aura, clickMultiplier, upgrades, bcBought } }, { merge: true });
-}, 5000);
-
-// ===== LOGIN / LOGOUT =====
-
-// Example login function (replace loginBtn click)
-loginBtn.addEventListener("click", async (e) => {
-  e.preventDefault();
-
-  const email = prompt("Enter your email:");
-  const password = prompt("Enter your password:");
-
-  try {
-    const userCredential = await auth.signInWithEmailAndPassword(email, password);
-    const user = userCredential.user;
-
-    if (!user.emailVerified) {
-      await user.sendEmailVerification();
-      alert("Email not verified! A verification link has been sent to your inbox. Check your email and login again.");
-      await auth.signOut(); // prevent login until verified
-    } else {
-      alert("Logged in successfully!");
-      // Continue with your game logic, e.g., syncProgress(user)
-      syncProgress(user);
-      loginBtn.style.display = "none";
-      logoutBtn.style.display = "inline-block";
-    }
-
-  } catch (err) {
-    alert(err.message);
-  }
-});
-
-
-// Logout button
-logoutBtn.addEventListener("click", async () => {
-  await auth.signOut();
-  location.reload();
-});
-
-// ===== AUTO SYNC ON PAGE LOAD =====
-auth.onAuthStateChanged(user => {
-  if (user) {
-    loginBtn.style.display = "none";
-    logoutBtn.style.display = "inline-block";
-    syncProgress(user); // auto-load their progress
-  } else {
-    loginBtn.style.display = "inline-block";
-    logoutBtn.style.display = "none";
-    loadLocal(); // fallback to localStorage
-  }
-});
-// Bottom nav screen switching
+// ===== BOTTOM NAV =====
 const tabBtns = document.querySelectorAll('#bottomBar .tabBtn');
 const screens = document.querySelectorAll('.screen');
 
 tabBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     const target = btn.getAttribute('data-target');
-    if (!target) return; // locked slot
-
+    if (!target) return; // locked
     screens.forEach(s => s.classList.remove('active'));
     tabBtns.forEach(b => b.classList.remove('active'));
-
     document.getElementById(target).classList.add('active');
     btn.classList.add('active');
   });
-// NAV BAR JS
-const navButtons = document.querySelectorAll("#navBar .navBtn");
-const screens = {
-  play: document.getElementById("game"),
-  shop: document.getElementById("shop"),
-  news: document.getElementById("news") || (() => { 
-    const n = document.createElement('div'); 
-    n.id='news'; 
-    n.textContent='📫 No news yet!'; 
-    n.style.padding='20px'; 
-    n.style.display='none'; 
-    document.body.appendChild(n); 
-    return n; 
-  })(),
-  info: document.getElementById("info") || (() => { 
-    const i = document.createElement('div'); 
-    i.id='info'; 
-    i.textContent="Hey, let's learn how to play the game!";
-    i.style.padding='20px'; 
-    i.style.display='none'; 
-    document.body.appendChild(i); 
-    return i; 
-  })()
-};
+});
 
-navButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    if(btn.classList.contains('locked')) return; // ignore locked
-    navButtons.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    // hide all screens
-    Object.values(screens).forEach(s => s.style.display = 'none');
-
-    // show selected screen
-    const screen = btn.getAttribute('data-screen');
-    if(screens[screen]) screens[screen].style.display = 'block';
-  });
+// ===== LOGIN / LOGOUT =====
+loginBtn.addEventListener("click", async () => {
+  const email = prompt("Enter your email:");
+  const password = prompt("Enter your password:");
+  try {
+    const userCredential = await auth.signInWithEmailAndPassword(email, password);
+    const user = userCredential.user;
+    if (!user.emailVerified) {
+      await user.sendEmailVerification();
+      alert("Email not verified! Check inbox.");
+      await auth.signOut();
+    } else {
+      alert("Logged in successfully!");
+      loginBtn.style.display = "none";
+      logoutBtn.style.display = "inline-block";
+    }
+  } catch (err) { alert(err.message); }
+});
+logoutBtn.addEventListener("click", async () => { await auth.signOut(); location.reload(); });
+auth.onAuthStateChanged(user => {
+  if(user){ loginBtn.style.display="none"; logoutBtn.style.display="inline-block"; } 
+  else { loginBtn.style.display="inline-block"; logoutBtn.style.display="none"; loadLocal(); }
 });
