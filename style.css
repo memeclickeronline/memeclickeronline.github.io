@@ -103,3 +103,55 @@ html, body {
 #bottomBar .tabBtn.active { transform: translateY(-5px); background: #f4a460; box-shadow: 3px 3px #000; }
 #bottomBar .tabBtn.locked { opacity: 0.4; cursor: not-allowed; }
 #bottomBar .tabBtn:hover:not(.locked) { background: #d2a679; transform: translateY(-3px); }
+
+
+/* =========================
+   RESPONSIVE ADJUSTMENTS
+   ========================= */
+@media (max-width: 768px) {
+  /* Scale title */
+  #title {
+    font-size: 60px;
+  }
+  #titleContainer {
+    flex-direction: column;
+    margin-top: 80px;
+  }
+
+  /* Main click button */
+  #game img {
+    width: 90%;
+    height: auto;
+  }
+
+  /* Shop cards */
+  .card {
+    flex: 0 1 90%;
+    max-width: none;
+  }
+
+  #shop {
+    padding: 20px;
+  }
+
+  /* Bottom nav */
+  #bottomBar .tabBtn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5em;
+  }
+
+  /* ME button */
+  #meBtn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5em;
+  }
+}
+
+/* Make screens scrollable */
+.screen, #shop {
+  overflow-y: auto;
+  max-height: calc(100vh - 120px); /* leave space for topbar + bottomBar */
+  padding-bottom: 20px;
+}
