@@ -77,6 +77,44 @@ body {
   margin-bottom: 15px;
   box-shadow: 3px 3px #000;
 }
+/* Tabs container */
+#shopTabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
+
+/* Tab buttons */
+#shopTabs .tab {
+  flex: 1;
+  padding: 10px 0;
+  cursor: pointer;
+  font-family: 'Luckiest Guy', cursive;
+  background: #ffcc00;
+  border: 2px solid #000;
+  border-radius: 8px;
+  margin: 0 5px;
+  transition: transform 0.1s, background 0.2s;
+}
+
+#shopTabs .tab:hover {
+  background: #ffee66;
+}
+
+#shopTabs .tab.active {
+  background: #ffff00;
+  box-shadow: 2px 2px #000;
+}
+
+/* Panels */
+.shopPanel {
+  display: none; /* hidden by default */
+}
+
+.shopPanel.active {
+  display: block;
+}
+
 
 .card button {
   font-family: 'Luckiest Guy', cursive;
