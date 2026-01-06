@@ -197,3 +197,49 @@ body {
   opacity: 0.5;
   cursor: default;
 }
+/* ===== BOTTOM NAV BAR ===== */
+#bottomBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to top, #7b3f00, #a0522d); /* wooden gradient */
+  box-shadow: 0 -3px 10px rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+  z-index: 100;
+  border-top: 3px solid #3e1f00; /* darker top edge for 3D effect */
+}
+
+#bottomBar .tabBtn {
+  font-size: 1.8em; /* bigger icons */
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #deb887; /* light wooden-ish color */
+  border-radius: 12px;
+  border: 2px solid #3e1f00; /* darker outline */
+  cursor: pointer;
+  box-shadow: 2px 2px #000;
+  transition: transform 0.1s, background 0.2s;
+}
+
+#bottomBar .tabBtn.active {
+  transform: translateY(-5px);
+  background: #f4a460; /* highlight active tab */
+  box-shadow: 3px 3px #000;
+}
+
+#bottomBar .tabBtn.locked {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+#bottomBar .tabBtn:hover:not(.locked) {
+  background: #d2a679;
+  transform: translateY(-3px);
+}
