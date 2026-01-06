@@ -81,62 +81,77 @@ body {
 }
 #game img:active { transform: scale(0.95); }
 
-/* ===== SHOP ===== */
-#shop {
+/* ===== SHOP FULL SCREEN ===== */
+#screenShop {
+  display: none; /* hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   background: linear-gradient(135deg, #4da6ff, #1a75ff);
-  padding: 20px;
-  width: 300px;
-  border-radius: 15px;
-  box-shadow: 4px 4px #000;
-  color: #fff;
-  max-height: 70vh;
+  padding: 40px;
   overflow-y: auto;
-  margin: 20px auto;
+  box-sizing: border-box;
+  z-index: 50;
 }
 
-/* Shop Tabs */
+#screenShop .shopContainer {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* SHOP TABS */
 #shopTabs {
   display: flex;
-  justify-content: space-around;
-  margin-bottom: 15px;
+  justify-content: center;
+  margin-bottom: 25px;
+  gap: 15px;
 }
+
 #shopTabs .tab {
   flex: 1;
-  padding: 10px 0;
+  padding: 12px 0;
   cursor: pointer;
   font-family: 'Luckiest Guy', cursive;
   background: #ffcc00;
   border: 2px solid #000;
   border-radius: 8px;
-  margin: 0 5px;
   transition: 0.2s;
+  text-align: center;
 }
+
 #shopTabs .tab:hover { background: #ffee66; }
 #shopTabs .tab.active { background: #ffff00; box-shadow: 2px 2px #000; }
 
-/* Shop Cards */
+/* SHOP PANELS */
+.shopPanel { display: none; }
+.shopPanel.active { display: block; }
+
+/* SHOP CARDS */
 .card {
   background: #fff8cc;
   color: #000;
   border: 2px solid #000;
   border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 15px;
+  padding: 15px;
+  margin-bottom: 20px;
   box-shadow: 3px 3px #000;
   text-align: center;
 }
+
 .card button {
   font-family: 'Luckiest Guy', cursive;
   background: #ffcc00;
   border: 2px solid #000;
-  padding: 8px;
+  padding: 10px;
   border-radius: 8px;
   cursor: pointer;
   width: 100%;
 }
-.card p { margin: 5px 0; }
-.card small { font-style: italic; }
-.bcImage { width: 100%; border-radius: 8px; margin-top: 5px; }
+
+.bcImage { width: 100%; border-radius: 8px; margin-top: 10px; }
+
 
 /* ===== ME POPUP ===== */
 #mePopup {
