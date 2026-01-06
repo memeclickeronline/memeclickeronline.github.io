@@ -107,3 +107,51 @@ function updateMEPopup(){
   const aura5s = upgrades.seven.count + upgrades.boomer.count*(5/3) + upgrades.genZ.count*5 + upgrades.rizz.count*5 + upgrades.skibidi.count*10;
   document.getElementById("apsInfo").textContent = Math.round(aura5s*100)/100;
 }
+// Save current progress to Firestore and localStorage
+async function saveProgress(user, progress) {
+  // Save locally
+  localStorage.setItem('memeClickerProgress', JSON.stringify(progress));
+
+  if (!user) return; // not logged in yet
+
+  // Save to Firestore under UID
+  await db.collection('users').doc(user.uid).set({
+    progress
+  }, { merge: true }); // merge keeps username intact
+}
+
+// Load progress for current session
+async function loadProgress(user) {
+  let progress = { score: 0, level: 1 }; // default
+
+  // Load from Firestore if logged in
+  if (user) {
+    const doc = await db.collection('users').doc(user.uid).get();
+    if (doc.exists && doc.data().progress) {
+      progress = doc.data().progress;
+    }
+  } else {
+    // Load from localStorage if not logged in
+    const local = localStorage.getItem('memeClickerProgress');
+    if (local) progress = JSON.parse(local);
+  }
+
+  return progress;
+}
+
+// When user logs in or signs up
+async function onUserLogin(user) {
+  const local = localStorage.getItem('memeClickerProgress');
+  const doc = await db.collection('users').doc(user.uid).get();
+
+  if (doc.exists && doc.data().progress) {
+    // Account has progress → load it
+    localStorage.setItem('memeClickerProgress', JSON.stringify(doc.data().progress));
+  } else if (local) {
+    // No progress yet → use local progress and save it to Firestore
+    await db.collection('users').doc(user.uid).set({
+      progress: JSON.parse(local)
+    }, { merge: true });
+  }
+}
+
