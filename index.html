@@ -146,5 +146,16 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script src="game.js"></script>
+
+  <!-- LOGIN MODAL -->
+<div id="loginPopup" style="display:none; position:fixed; top:50%; left:50%;
+     transform:translate(-50%,-50%); background:#a0ff99; padding:30px; border:3px solid #000; border-radius:12px; z-index:1000;">
+  <h2>Login / Sign Up</h2>
+  <input type="email" id="loginEmail" placeholder="Email" style="font-family:'Luckiest Guy'; font-size:1em; padding:5px; margin:5px;"><br>
+  <input type="password" id="loginPassword" placeholder="Password" style="font-family:'Luckiest Guy'; font-size:1em; padding:5px; margin:5px;"><br>
+  <button id="loginSubmit" style="font-family:'Luckiest Guy'; padding:5px 10px; margin:5px;">Login</button>
+  <button id="loginClose" style="background:#ff6666; font-family:'Luckiest Guy'; padding:5px 10px; margin:5px;">Close</button>
+</div>
+
 </body>
 </html>
