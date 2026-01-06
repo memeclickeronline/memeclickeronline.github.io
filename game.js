@@ -44,18 +44,34 @@ document.getElementById("genZBtn").onclick    = () => buyUpgrade("genZ");
 document.getElementById("rizzBtn").onclick    = () => buyUpgrade("rizz");
 document.getElementById("skibidiBtn").onclick = () => buyUpgrade("skibidi");
 
-// Auto income
-setInterval(() => { aura += upgrades.seven.count; updateScore(); }, 5000);
-setInterval(() => { aura += upgrades.boomer.count; updateScore(); }, 3000);
 setInterval(() => {
-  for (let i=0; i<upgrades.genZ.count; i++){
-    aura += Math.random()<0.5?5:-5;
-    if(aura<0)aura=0;
+  aura += upgrades.seven.count * clickMultiplier;
+  updateScore();
+}, 5000);
+
+setInterval(() => {
+  aura += upgrades.boomer.count * clickMultiplier;
+  updateScore();
+}, 3000);
+
+setInterval(() => {
+  for (let i = 0; i < upgrades.genZ.count; i++) {
+    aura += (Math.random() < 0.5 ? 5 : -5) * clickMultiplier;
+    if (aura < 0) aura = 0;
   }
   updateScore();
 }, 5000);
-setInterval(() => { aura += upgrades.rizz.count; updateScore(); }, 1000);
-setInterval(() => { aura += upgrades.skibidi.count*2; updateScore(); }, 1000);
+
+setInterval(() => {
+  aura += upgrades.rizz.count * clickMultiplier;
+  updateScore();
+}, 1000);
+
+setInterval(() => {
+  aura += upgrades.skibidi.count * 2 * clickMultiplier;
+  updateScore();
+}, 1000);
+
 
 // Tab switching
 const tabs = document.querySelectorAll("#shopTabs .tab");
