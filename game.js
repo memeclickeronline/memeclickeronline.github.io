@@ -206,3 +206,18 @@ auth.onAuthStateChanged(user => {
     loadLocal(); // fallback to localStorage
   }
 });
+// Bottom nav screen switching
+const tabBtns = document.querySelectorAll('#bottomBar .tabBtn');
+const screens = document.querySelectorAll('.screen');
+
+tabBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.getAttribute('data-target');
+    if (!target) return; // locked slot
+
+    screens.forEach(s => s.classList.remove('active'));
+    tabBtns.forEach(b => b.classList.remove('active'));
+
+    document.getElementById(target).classList.add('active');
+    btn.classList.add('active');
+  });
