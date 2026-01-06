@@ -74,3 +74,38 @@ document.getElementById("bcBtn").onclick = ()=>{
     updateScore();
   }
 };
+// ME popup
+const meBtn = document.getElementById("meBtn");
+const mePopup = document.getElementById("mePopup");
+const meCloseBtn = document.getElementById("meCloseBtn");
+
+// Open popup
+meBtn.addEventListener("click", () => {
+  mePopup.style.display = "block";
+  updateMEPopup(); // update stats whenever opened
+});
+
+// Close popup
+meCloseBtn.addEventListener("click", () => {
+  mePopup.style.display = "none";
+});
+
+// Function to update stats inside popup
+function updateMEPopup() {
+  // Example: progress (items owned / total)
+  const totalItems = upgrades.seven.count + upgrades.boomer.count + upgrades.genZ.count + upgrades.rizz.count + upgrades.skibidi.count + (bcBought ? 1 : 0);
+  const totalPossible = 6; // total items including BC
+  document.getElementById("meProgress").textContent = Math.round((totalItems / totalPossible) * 100) + "%";
+
+  // Worth (all money spent)
+  let worth = 0;
+  for (const key in upgrades) {
+    worth += upgrades[key].count * upgrades[key].cost;
+  }
+  if (bcBought) worth += 10000;
+  document.getElementById("meWorth").textContent = worth;
+
+  // Aura per 5 seconds
+  let aura5s = upgrades.seven.count + upgrades.boomer.count * (5/3) + upgrades.genZ.count * 5 + upgrades.rizz.count * 5 + upgrades.skibidi.count * 10; // rough calc
+  document.getElementById("meAura5s").textContent = Math.round(aura5s * clickMultiplier * 100)/100;
+}
