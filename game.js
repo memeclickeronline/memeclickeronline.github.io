@@ -89,7 +89,8 @@ function buyUpgrade(name) {
     document.getElementById(name + "Owned").textContent = up.count;
 
     // Exact descriptions from your GitHub history
-    const descEl = document.querySelector(`#${name}Btn`).nextElementSibling.nextElementSibling; // <small>
+const descEl = document.getElementById(name + "Btn").closest('.card').querySelector('small');
+
     switch(name){
       case "seven": 
         descEl.textContent = "Little iPad kid who gains 1 aura every 5 seconds."; 
