@@ -176,7 +176,9 @@ function updateMEPopup() {
   document.getElementById("apsInfo").textContent = Math.round(aura5s * 100)/100;
 
   const user = auth.currentUser;
-  document.getElementById("accountInfo").textContent = user ? user.email : "-";
+  document.getElementById("accountInfo").textContent =
+  user ? user.email : "Guest (not logged in)";
+
 }
 
 // ===== BOTTOM NAV =====
