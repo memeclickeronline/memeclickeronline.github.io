@@ -4,14 +4,16 @@
 
 /* BODY */
 html, body {
-  height: 100%;
+  min-height: 100%;
   margin: 0;
   font-family: 'Luckiest Guy', cursive;
   background: linear-gradient(to bottom, #1e3c72, #2a5298);
   color: #fff;
-  overflow: hidden;
+  overflow-x: hidden;   /* only block sideways scroll */
+  overflow-y: auto;     /* allow vertical scroll */
   text-align: center;
 }
+
 
 /* TOPBAR */
 #topbar {
