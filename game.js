@@ -112,6 +112,8 @@ function buyUpgrade(name) {
 
     // Exact descriptions from your GitHub history
 const descEl = document.getElementById(name + "Btn").closest('.card').querySelector('small');
+descEl.textContent = descriptions[name];
+
 
     switch(name){
       case "seven": 
