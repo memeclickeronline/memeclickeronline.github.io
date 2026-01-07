@@ -193,8 +193,9 @@ tabBtns.forEach(btn => {
 
 // ===== LOGIN / LOGOUT =====
 loginBtn.addEventListener("click", () => {
-  document.getElementById("loginPopup").style.display = "block";
+  window.location.href = "https://accounts.monkeymechanics.github.io";
 });
+
 
 document.getElementById("loginClose").addEventListener("click", () => {
   document.getElementById("loginPopup").style.display = "none";
