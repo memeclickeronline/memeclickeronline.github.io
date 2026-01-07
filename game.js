@@ -206,7 +206,7 @@ tabBtns.forEach(btn => {
 
 // ===== LOGIN / LOGOUT =====
 loginBtn.addEventListener("click", () => {
-  window.location.href = "https://accounts.monkeymechanics.github.io";
+  window.location.href = "https://accounts4monkeymechanics.github.io";
 });
 
 
